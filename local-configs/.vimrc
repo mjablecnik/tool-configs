@@ -333,8 +333,8 @@ endfunction
 
 let g:session_autosave = 'no'
 let g:session_autoload = 'no'
-execute pathogen#infect()
-call pathogen#helptags()
+"execute pathogen#infect()
+"call pathogen#helptags()
 
 
 

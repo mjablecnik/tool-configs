@@ -11,7 +11,7 @@ Every backend service MUST contain the following files:
 - `.env` — actual environment values (gitignored, never committed)
 - `.env.example` — template with all keys and placeholder values (committed)
 - `Dockerfile` — multi-stage build for production
-- `docker-compose.yml` — local development with `env_file: .env`
+- `start-docker.sh` — bash script that builds the Docker image and starts the container locally (uses `--env-file .env`)
 - `fly.toml` — Fly.io deployment configuration (single source of truth for app name)
 - `fly-setup.sh` — script that creates the Fly.io app (if needed) and sets secrets from `.env`, skipping keys already in `fly.toml [env]`
 - `README.md` — must include setup and run instructions for both local Docker and Fly.io deployment
@@ -38,11 +38,16 @@ APP_NAME=$(grep '^app\s*=' fly.toml | sed 's/^app\s*=\s*"\(.*\)"/\1/')
 5. Skips keys already defined in `fly.toml [env]` (non-secret config)
 6. Sets remaining key-value pairs as Fly.io secrets via `fly secrets set --app <APP_NAME>`
 
-## docker-compose.yml
+## start-docker.sh
 
-- Uses `env_file: .env` for local configuration
-- Exposes the same ports as defined in `fly.toml`
-- Uses `restart: unless-stopped`
+A bash script (`#!/bin/bash`) that handles local Docker workflow:
+
+1. Parses `APP_NAME` from `fly.toml` (used as image/container name)
+2. Builds the Docker image (`docker build -t $APP_NAME .`)
+3. Stops and removes any existing container with the same name
+4. Runs the container with `--env-file .env`, exposing the same ports as defined in `fly.toml`
+
+Do NOT use `docker-compose.yml`. All local Docker orchestration is handled by `start-docker.sh`.
 
 ## README.md Requirements
 
@@ -50,8 +55,8 @@ Every backend service README MUST include these sections:
 
 ### Local Docker Setup
 - How to configure `.env` (copy from `.env.example`)
-- How to build and run with `docker compose up --build`
-- How to stop with `docker compose down`
+- How to build and run with `./start-docker.sh`
+- How to stop with `docker stop <container-name>`
 
 ### Fly.io Deployment
 - How to setup and set secrets (`./fly-setup.sh`)

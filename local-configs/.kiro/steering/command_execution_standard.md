@@ -10,6 +10,12 @@ All shell commands must be compatible with **zsh** and executed in either:
 - WSL (Windows Subsystem for Linux)
 - Native Linux environment
 
+## Generated Shell Scripts
+
+When generating shell scripts (`.sh` files), the default shell MUST be **bash** (`#!/bin/bash`). All generated scripts should follow bash standards and best practices (e.g., `set -euo pipefail`).
+
+Use zsh (`#!/usr/bin/env zsh`) ONLY when the user explicitly requests or permits it.
+
 ## Command Requirements
 
 Commands should:

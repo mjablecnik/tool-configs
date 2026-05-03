@@ -18,10 +18,11 @@ These rules apply to all non-UI projects: backend services, CLI tools, parsers, 
 When organizing into folders, use these categories as needed:
 
 - `core/` — configuration, types/schemas, constants, utilities, shared infrastructure
+- `data/` — models, entities, DTOs, database schemas, value objects
 - `clients/` — HTTP clients and external service integrations (pure I/O, no business logic)
 - `services/` — business logic, orchestration, workflow handlers, command handlers
 
-Not every project needs all three. Use only what makes sense for the project size.
+Not every project needs all four. Use only what makes sense for the project size.
 
 ## Entry Point
 

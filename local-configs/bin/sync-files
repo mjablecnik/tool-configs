@@ -1,8 +1,0 @@
-#!/bin/bash
-
-#scp root@drakeman.cz:sync-files/.vimrc ~
-#scp root@drakeman.cz:sync-files/.zshrc ~
-#scp root@drakeman.cz:sync-files/.tmux.conf ~
-#scp root@drakeman.cz:sync-files/upstart /tmp && sudo mv /tmp/upstart /etc
-#scp root@drakeman.cz:sync-files/tst ~/Documents/tst
-#rsync -avz root@drakeman.cz:sync-files/bin/ ~/bin/ 

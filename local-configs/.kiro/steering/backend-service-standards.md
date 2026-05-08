@@ -31,12 +31,30 @@ APP_NAME=$(grep '^app\s*=' fly.toml | sed 's/^app\s*=\s*"\(.*\)"/\1/')
 
 ## fly-setup.sh Behavior
 
+The script MUST be idempotent — safe to run repeatedly without errors.
+
 1. Parses `APP_NAME` from `fly.toml`
-2. Creates the Fly.io app if it doesn't exist (`fly launch --no-deploy`)
-3. Reads `.env` file
-4. Skips empty lines, comments, and empty values
-5. Skips keys already defined in `fly.toml [env]` (non-secret config)
-6. Sets remaining key-value pairs as Fly.io secrets via `fly secrets set --app <APP_NAME>`
+2. Checks if the app already exists using `fly apps list`
+3. Creates the app ONLY if it does not exist (`fly apps create $APP_NAME`)
+4. Reads `.env` file
+5. Skips empty lines, comments, and empty values
+6. Skips keys already defined in `fly.toml [env]` (non-secret config)
+7. Sets remaining key-value pairs as Fly.io secrets via `fly secrets set --app $APP_NAME`
+
+### App Existence Check
+
+Use `fly apps list` to check whether the app already exists before attempting to create it:
+
+```sh
+if fly apps list | grep -q "^$APP_NAME\s"; then
+  echo "App $APP_NAME already exists, skipping creation."
+else
+  echo "Creating app $APP_NAME..."
+  fly apps create "$APP_NAME"
+fi
+```
+
+Do NOT use `fly launch` — it attempts interactive setup and fails on existing apps. Use `fly apps create` for non-interactive, idempotent app creation.
 
 ## start-docker.sh
 

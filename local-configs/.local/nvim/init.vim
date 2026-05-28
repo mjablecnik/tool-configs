@@ -241,12 +241,12 @@ set rtp+=~/.local/nvim/plugins/vim-javascript/
 set rtp+=~/.local/nvim/plugins/vim-vue/
 set rtp+=~/.local/nvim/plugins/vim-svelte/
 
-call plug#begin('~/.local/nvim/plugged')
-"Plug 'posva/vim-vue'	
-"Plug 'dhruvasagar/vim-table-mode'
-"Plug 'evanleck/vim-svelte'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-call plug#end()
+" call plug#begin('~/.local/nvim/plugged')
+" "Plug 'posva/vim-vue'	
+" "Plug 'dhruvasagar/vim-table-mode'
+" "Plug 'evanleck/vim-svelte'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" call plug#end()
 
 
 " NerdTree config

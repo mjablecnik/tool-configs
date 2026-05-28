@@ -33,7 +33,7 @@ function setup_configs {
     #cp bin/upstart /etc/upstart
     #cp martin/roles/common/files/upstart.service /lib/systemd/system/
     
-    cp -r .config .tmux .tmux.conf .vim .vimrc .zshrc /root
+    sudo cp -r .config .tmux .tmux.conf .vim .vimrc .zshrc /root
     cp -r .config .tmux .tmux.conf .vim .vimrc .zshrc .kiro .Xresources ${USER_HOME}
     if [[ ${1} == 'local' ]]; then
       cp -r .local/nvim ${USER_HOME}/.local
@@ -57,21 +57,21 @@ function setup_configs {
 
 function setup_zsh {
   echo "Setup ZSH shell.."
-    chsh -s /usr/bin/zsh root
-    chsh -s /usr/bin/zsh ${USER}
+    sudo chsh -s /usr/bin/zsh root
+    sudo chsh -s /usr/bin/zsh ${USER}
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 }
 
 
 function setup_git {
   echo "Setup git.."
-    git config --global user.name "${1}"
-    git config --global user.email "${EMAIL}"
-    git config --system core.editor /usr/bin/vim
-    git config --global pager.branch false
-    git config --global rebase.autoSquash true
-    git config --global rerere.enabled true
-    git config --global merge.conflictStyle diff3
+    sudo git config --global user.name "${1}"
+    sudo git config --global user.email "${EMAIL}"
+    sudo git config --system core.editor /usr/bin/vim
+    sudo git config --global pager.branch false
+    sudo git config --global rebase.autoSquash true
+    sudo git config --global rerere.enabled true
+    sudo git config --global merge.conflictStyle diff3
 }
 
 
@@ -104,9 +104,9 @@ function setup_bin_files {
 function personal_setup {
 
   echo "install app packages.."
-    apt-get update
-    apt-get -y install curl wget sudo zsh neovim vim-gtk3 tmux git gitk htop nmap ack-grep \
-                    pnmixer diodon xsel scrot udiskie xdotool wmctrl openjdk-21-jdk
+    sudo apt-get update
+    sudo apt-get -y install curl wget sudo zsh neovim tmux git gitk htop nmap ack-grep \
+                    pnmixer xsel scrot udiskie 
                    
 
   setup_zsh 
